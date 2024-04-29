@@ -1,0 +1,100 @@
+
+#******************** Settings ************************
+
+*** Settings ***
+
+# TODO: Write Documentation e.g. User Registration Test scenario with verification, valid and invalid credentials.
+
+Documentation	
+
+# TODO: Write Precondition, Postcondition, Tags
+
+Pre 	Condition: User navigates to the GitLab registration page.
+Post 	Condition: User completes the registration process successfully.
+Tags 	Registration, GitLab, User Creation, TS-2-Registration
+
+#******************* Common Variables ********************
+
+*** Variables ***
+
+# NOTE: Please Remove your login credential before uploading Assignments
+
+# TODO: Write Registration field variables
+
+LoginUrl = https://gitlab.com/users/sign_up
+
+FirstName = YiAn
+LastName = Lai
+Username = yianLai
+Email = layannann@gmail.com
+Password = strongPW1
+emailVerificationCode = 679344
+PhoneNumber = +358 415870031
+PhoneNumberVerificationCode = 8736682 
+
+Invalid_Username = sd+-8
+Exist_Email = exist_email
+Invalid_Password = shortPW
+Empty= 
+
+#******************** Test Cases *************************
+
+*** Test Case ***
+
+# TODO: Write Positive and Negative Test Cases and Test Process steps (Think about possible test cases)
+
+# Positive Test examples are below write test process steps for each below test case
+
+Register user with valid username and password 
+	Navigate to Registration Page RegistrationUrl
+	Input First Name 	FirstName
+	Input Last Name		LastName
+	Input Username		Username
+	Input Email 		Email
+	Input Password 		Password
+	Submit Registration Form
+	Verify Page Should Contain Help us keep GitLab secure
+	Input Email verification code emailVerificationCode
+	Input Phone number 	PhoneNumber
+	Input Phone number verification code PhoneNumberVerificationCode
+	Verify Registration Successful page
+	Navigate to Welcome to gitlab username
+
+
+# Negative Test examples keywords are below write test process steps for each below test case 
+
+Register With Invalid Credential
+	Input First Name 	FirstName
+	Input Last Name		LastName
+	Input Username 		Username
+	Input Email 		Email
+	Input Password 		Invalid_Password
+	Submit Registration Form
+	Verify Page Should Contain Invalid password.
+
+Error message Should Be Visible After Invalid Register With Empty And Space
+	Input First Name 	Empty
+	Input Last Name 	Empty
+	Input Username 		Username
+	Input Email 		Email
+	Input Password 		Password
+	Submit Registration Form
+	Verify That Error message should show This field is required. 
+
+Attempt To Register With Already Enrolled Email Address
+	Input First Name 	FirstName
+	Input Last Name		LastName
+	Input Username		Username
+	Input Email 		Exist_Email
+	Input Password 		Password
+	Submit Registration Form
+	Verify Page Should Contain 2 errors prohibited this user from being saved. 
+
+Register With Username Or Password Containing Disallowed Special Characters
+	Input First Name 	FirstName
+	Input Last Name		LastName
+	Input Username		Invalid_Username
+	Input Email 		Email
+	Input Password 		Password
+	Submit Registration Form
+	Verify Page Should Contain Please create a username that contains only letters and numbers.

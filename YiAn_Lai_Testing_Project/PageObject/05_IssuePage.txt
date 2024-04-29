@@ -1,0 +1,69 @@
+
+#******************** Settings ************************
+
+*** Settings ***
+Documentation	Issue Test scenario. CRUD Operation: Create, Read, Update, Delete
+
+# TODO: Write Precondition and Postcondition, Tags 
+
+Pre Condition		User is logged in to GitLab. User has access to the project where the issue will be created. Project required for creating issues is already created by the user.
+Post Condition		Issue is successfully created in the project's issue tracker. User may be redirected to the project's issue board or issue detail page, depending on GitLab's workflow.
+Tags				Create Issue, GitLab, Issue Management, TS-8-CreateIssue
+
+#******************* Common Variables ********************
+
+
+*** Variables ***
+
+# NOTE: Please Remove your login credential before uploading Assignments
+
+# TODO: Write Issue creation field variables, Updated name of the issue
+
+Issue_Title = IssueTitle
+New_Issue_Title = NewIssueTitle
+Empty = 
+
+
+#******************** Test Cases *************************
+
+*** Test Case ***
+
+# TODO: Write Positive Test Cases and Test Process steps
+
+# Positive Test examples are below write test process steps for each below test case
+
+Create issue With Valid Issue Title
+	Click New Issue
+	Input Issue Title 			Issue_Title
+ 	Click create issue
+	Valide that message is showing Issue Created Just Now By Author
+
+Update Title of Issue
+	Click Edit Button
+	Input New Issue Title 		New_Issue_Title
+	Click Save Change Button
+	Valide that message is showing Author Changed Title From Issue_Title To New_Issue_Name Just Now
+
+Delete First Issue
+	Click the Button Beside the Edit 
+	Click The Delete Issue
+	Valide that message is showing The Issue Was Successfully Deleted.
+
+Create Second Issue With Privious Updated Name
+	Click New Issue
+	Input Issue Title 			Issue_Title
+ 	Click create issue
+	Valide that message is showing Issue Created Just Now By Author
+
+# Negative Test
+
+Error message Should Be Visible After Create Issue Without Issue Title
+	Click New Issue
+	Input Issue Title 			Empty
+ 	Click create issue
+	Verify That Error message should show This field is required. 
+
+Error message Should Be Visible After Update Issue Title Without Issue Title
+	Click Edit Button
+	Input New Issue Title 		Empty
+	This Should Be Unable To Click The Save Change Button

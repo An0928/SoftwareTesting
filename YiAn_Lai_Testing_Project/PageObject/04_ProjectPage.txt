@@ -1,0 +1,99 @@
+
+#******************** Settings ************************
+
+*** Settings ***
+
+# TODO: Write Dcocumentation e.g. Project Test scenario. CRUD Operation: Create, Read, Update, Delete
+
+Documentation	
+
+# TODO: Write Precondition, Postcondition, Tags
+
+Pre Condition	 User is logged in to GitLab. User has access to the Create Project feature.
+Post Condition	 Project is successfully created in GitLab. User is redirected to the project's main page.
+Tags			 Create Project, GitLab, Project Management, TS-6-CreateProject
+
+#******************* Common Variables ********************
+
+*** Variables ***
+
+# NOTE: Please Remove your login credential before uploading Assignments
+
+# TODO: Write Project creation field variables
+
+ProjectName = projectName
+project_URL = group
+ProjectSlug = projectSlug
+project_new_name = projectNewName
+Exist_ProjectName = exist_projectName
+Confirm_Information = ConfirmInformation
+Date = 2024/04/24
+Empty = 
+
+#******************** Test Cases *************************
+
+*** Test Case ***
+
+# TODO: Write Positive and Negative Test Cases and Test Process steps
+
+# Positive Test examples are below write test process steps for each below test case
+
+Create Blank Project With Valid Project Name And Project URL
+	Create blank project
+	Input project name 					ProjectName
+	Choose project URL 					Project_URL
+	Input project slug 					ProjectSlug
+	Submit project Form
+	Valide that message is showing Project 'First project ' was successfully created.
+
+Create Template Project With Valid Project Name and Project URL
+	Create template project
+	Choose a template
+	Input project name 					ProjectName
+	Choose project URL 					Project_URL
+	Input project slug 					ProjectSlug
+	Submit project Form
+	Valide that message is showing Project 'First project ' was successfully created.
+
+Update Name of Template Project
+	Click project Settings
+	Input project new name 				project_new_name
+	Valide that message is showing Project 'Template_test' was successfully updated.
+
+Delete Template Project
+	Click project Settings
+	Expand Advanced and Find Delete this Project
+	Click Delete Project 
+	Input the confirm information 		Confirm_Information
+	Click yes, delet project
+	Valide that message is showing Project "ProjectName" will be deleted on "Date". 
+
+# Negative Test examples are below write test process steps for each below test case
+
+Attempt To Create a Blank Project With The Previous Same Name
+	Create blank project				Exist_ProjectName 
+	Choose project URL 					Project_URL
+	Input project slug 					ProjectSlug
+	Submit project Form
+	Verify Page Should Contain Project namespace name has already been taken Name has already been taken Path has already been taken
+
+Error message Should Be Visible After Invalid Create a Blank Project Without Choosing Project URL
+	Create blank project
+	Input project name 					ProjectName
+	Choose project URL 					Empty
+	Input project slug 					ProjectSlug
+	Submit project Form
+	Verify Page Should Contain Pick a group or namespace where you want to create this project.
+
+
+Error message Should Be Visible After Invalid Create project With Empty And Space
+	Input project name 					ProjectName
+	Choose project URL 					Project_URL
+	Input project slug 					Empty
+	Submit project Form
+	Verify That Error message should show This field is required. 
+
+Attempt To Update Name of Template Projec With The Same Project Name
+	Click project Settings
+	Input project new name 				ProjectName
+	This Should Be Unable To Click The Save Change Button
